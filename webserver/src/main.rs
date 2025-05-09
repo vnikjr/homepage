@@ -2,6 +2,7 @@
 extern crate rocket;
 use std::process::Command;
 
+mod blog;
 mod html;
 mod wasm;
 
@@ -12,15 +13,17 @@ fn rocket() -> _ {
             "build",
             "--target",
             "web",
-            "--release", // when i uncomment this it says im using -r twice
-            "../wasm/snake",
+            "--release",
+            "./wasm/snake",
             "--out-dir",
             "../../webserver/static/wasm/snake",
             "--no-pack",
         ])
         .status()
         .expect("Failed to build wasm package");
+
     rocket::build()
         .mount("/wasm", wasm::get_routes())
         .mount("/", html::return_routes())
+        .mount("/blog", blog::get_routes())
 }

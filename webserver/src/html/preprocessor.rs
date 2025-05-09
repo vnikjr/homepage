@@ -57,7 +57,7 @@ pub fn head() -> Markup {
                   }
                }
             "}
-            link rel = "stylesheet" href = "https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.purple.min.css"{}
+            link rel = "stylesheet" href = "https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.violet.min.css"{}
             title {"Eve's homepage :3"}
         }
     }

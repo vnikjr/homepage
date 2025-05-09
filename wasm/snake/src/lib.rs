@@ -183,7 +183,8 @@ pub fn main() {
             Direction::Down => {
                 let mut pointclone = state.head.point.clone();
                 if pointclone.y == state.board_size.y - 1 {
-                    state = &mut GameState::new(width.clone(), height.clone());
+                    pointclone.y = 0;
+                    //state = &mut GameState::new(width.clone(), height.clone());
                 } else {
                     pointclone.y += 1;
                 }
