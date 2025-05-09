@@ -2,6 +2,8 @@
 extern crate rocket;
 use std::process::Command;
 
+use rocket::fs::{FileServer, relative};
+
 mod blog;
 mod html;
 mod wasm;
@@ -26,4 +28,5 @@ fn rocket() -> _ {
         .mount("/wasm", wasm::get_routes())
         .mount("/", html::return_routes())
         .mount("/blog", blog::get_routes())
+        .mount("/icons", FileServer::from("webserver/static/images/icons"))
 }

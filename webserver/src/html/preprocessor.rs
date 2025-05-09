@@ -58,6 +58,7 @@ pub fn head() -> Markup {
                }
             "}
             link rel = "stylesheet" href = "https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.violet.min.css"{}
+            link rel = "shortcut icon" type = "image/png" href = "/icons/favicon.ico"{}
             title {"Eve's homepage :3"}
         }
     }

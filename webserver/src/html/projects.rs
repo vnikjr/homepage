@@ -89,11 +89,11 @@ pub fn projects() -> Markup {
                         }
                         p { "Timestamp: apr 2025" }
                         p { "while not the most hardware impressive of things (its my old laptop), the software and software management is top notch, running Nixos for a purely declarative approach to everything, managing a cluster of both my own docker containers and ones from the web, including pihole for custom dns, caddy for reverse proxying and traffic routing, and hosting a personal docker registry for my own projects, all descrived in Nix, allowing for perfect reproducability, " }
-                        p { "future plans for this homelab include,
-                            - a home media server
-                            - ci/cd pipeline for rebuilding docker containers on push
-                            - ci/cd pipeline for updating the configs of the homelab on push
-                            " }
+                        p { "future plans for this homelab include"}
+                        li { " a home media server" }
+                        li { " ci/cd pipeline for rebuilding docker containers on push" }
+                        li { " ci/cd pipeline for updating the configs of the homelab on push" }
+
                         footer {
                             a href = "/projects/homelab" class = "secondary" {small{ "details " }}
                             p { "" }
@@ -105,7 +105,7 @@ pub fn projects() -> Markup {
                             h4{ "school website" }
                         }
                         p { "Timestamp: sep 2024" }
-                        p { "uhhhh, yeah i kinda made a website for my school, while not the official one, it is endorsed by out school, and also is used by some of the studens, it hosts a digital version of the school's rulebook, and while ive not been updating it for some time now, its help up as is perfectly fine and still serves its main purpose" }
+                        p { "uhhhh, yeah i kinda made a website for my school, while not the official one, it is endorsed by our school, and also is used by some of the students, it hosts a digital version of the school's rulebook, and while ive not been updating it for some time now, its held up as is perfectly fine and still serves its main purpose" }
                         footer {
                             a href = "/projects/school_site" class = "secondary" {small{ "details " }}
                             p { "" }
