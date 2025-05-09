@@ -2,7 +2,7 @@
 extern crate rocket;
 use std::process::Command;
 
-use rocket::fs::{FileServer, relative};
+use rocket::fs::FileServer;
 
 mod blog;
 mod html;
