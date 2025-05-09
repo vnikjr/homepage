@@ -1,6 +1,6 @@
 use crate::html::preprocessor::generic_preprocessor;
 use maud::{Markup, PreEscaped, Render, html};
-use pulldown_cmark::{CodeBlockKind, Event, Parser, Tag};
+use pulldown_cmark::Parser;
 use regex::Captures;
 use rocket::Route;
 use rocket::tokio::io::AsyncReadExt;
