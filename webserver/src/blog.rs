@@ -8,12 +8,30 @@ use rocket::{get, routes};
 use std::path::{Path, PathBuf};
 
 pub fn get_routes() -> Vec<Route> {
-    routes![blog_post]
+    routes![blog_post, embedable_post]
+}
+
+#[get("/embedable/<post>")]
+async fn embedable_post(post: PathBuf) -> Option<Markup> {
+    let md_path = Path::new("webserver/static/blog")
+        .join(post)
+        .with_extension("md");
+
+    // Read and return raw markdown content
+    match rocket::fs::NamedFile::open(md_path).await {
+        Ok(mut file) => {
+            let mut buffer = String::new();
+            file.read_to_string(&mut buffer).await.ok();
+            let markdown = Markdown(buffer);
+
+            Some(embadable_blog_page(markdown))
+        }
+        Err(_) => None,
+    }
 }
 
 #[get("/<post>")]
 async fn blog_post(post: PathBuf) -> Option<Markup> {
-    // Rocket's PathBuf already prevents directory traversal
     let md_path = Path::new("webserver/static/blog")
         .join(post)
         .with_extension("md");
@@ -28,6 +46,76 @@ async fn blog_post(post: PathBuf) -> Option<Markup> {
             Some(blog_page(markdown))
         }
         Err(_) => None,
+    }
+}
+
+// TODO: refactor to avoid code duplication over these two pages
+fn embadable_blog_page(md: Markdown<String>) -> Markup {
+    html! {
+        head {
+            link rel = "stylesheet" href = "https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.colors.min.css"{}
+            style { "
+                .code-display {
+                        border-radius: 8px;
+                        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                        margin: 1.5em 0;
+                        overflow: hidden;
+                    }
+
+                    .code-header {
+                        //background-color: 2d2d2d;
+                        padding: 8px 16px;
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        border-bottom: 1px solid #404040;
+                    }
+
+                    .language-label {
+                        color: #cccccc;
+                        font-family: 'SF Mono', Menlo, monospace;
+                        font-size: 0.9em;
+                        text-transform: uppercase;
+                        letter-spacing: 1px;
+                    }
+
+                    .copy-button {
+                        background: #3d3d3d;
+                        border: 1px solid #5a5a5a;
+                        color: #a0a0a0;
+                        padding: 4px 12px;
+                        border-radius: 4px;
+                        cursor: pointer;
+                        font-family: system-ui, sans-serif;
+                        font-size: 0.8em;
+                        transition: all 0.2s ease;
+                    }
+
+                    .copy-button:hover {
+                        background: #4d4d4d;
+                        color: #ffffff;
+                    }
+
+                    .code-container {
+                        margin: 0;
+                        padding: 16px;
+                        //background-color: #1e1e1e;
+                        white-space: pre-wrap; /* Changed from default 'pre' */
+                        word-wrap: break-word;
+                        overflow-wrap: break-word;
+                    }
+
+                    .code-container code {
+                        font-family: 'SF Mono', Menlo, monospace;
+                        font-size: 0.95em;
+                        line-height: 1.5;
+                        color: #d4d4d4;
+                        display: block;
+                        white-space: pre-wrap; /* Changed from default 'pre' */
+                    }
+            " }
+        }
+        (md.render())
     }
 }
 

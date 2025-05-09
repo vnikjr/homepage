@@ -12,34 +12,12 @@ pub fn generic_preprocessor(page: Markup) -> Markup {
     }
 }
 
-pub fn footer() -> Markup {
-    html! {
-        footer class="container" {
-            hr;
-            p {
-                "Made with ❤️ using "
-                a href="https://rocket.rs" target="_blank" { "Rocket" } ", "
-                a href="https://maud.lambda.xyz" target="_blank" { "Maud" } ", and "
-                a href="https://picocss.com" target="_blank" { "Pico.css" } "."
-            }
-            p {
-                a href="/about" { "About Me" } " • "
-                a href="/projects" { "Projects" } " • "
-                a href="/resume" { "Résumé" } " • "
-                a href="/contact" { "Contact" }
-            }
-            p {
-                (format!("© {} Eve. All rights reserved.", chrono::Utc::now().year()))
-            }
-        }
-    }
-}
-
 pub fn head() -> Markup {
     html! {
         head{
             script defer="defer" src=r"https://cdn.jsdelivr.net/npm/@alpinejs/persist@3.x.x/dist/cdn.min.js" {""}
             script defer="defer" src=r"https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" {}
+            script defer="defer" src=r"https://unpkg.com/htmx.org@2.0.4" {}
             style { "
 
                   html, body {
@@ -105,6 +83,29 @@ fn header() -> Markup {
                     li { a href="/links" { "Links" } }
 
                 }
+            }
+        }
+    }
+}
+
+pub fn footer() -> Markup {
+    html! {
+        footer class="container" {
+            hr;
+            p {
+                "Made with ❤️ using "
+                a href="https://rocket.rs" target="_blank" { "Rocket" } ", "
+                a href="https://maud.lambda.xyz" target="_blank" { "Maud" } ", and "
+                a href="https://picocss.com" target="_blank" { "Pico.css" } "."
+            }
+            p {
+                a href="/about" { "About Me" } " • "
+                a href="/projects" { "Projects" } " • "
+                a href="/resume" { "Résumé" } " • "
+                a href="/contact" { "Contact" }
+            }
+            p {
+                (format!("© {} Eve. All rights reserved.", chrono::Utc::now().year()))
             }
         }
     }
